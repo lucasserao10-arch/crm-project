@@ -17,7 +17,7 @@ export async function createToken(
 
   await prisma.$transaction(async (tx) => {
     await tx.passwordResetToken.deleteMany({
-      where: { userId, usedAt: null },
+      where: { userId, type, usedAt: null },
     })
     await tx.passwordResetToken.create({
       data: {
@@ -48,14 +48,14 @@ export async function validateToken(plaintext: string, expectedType: TokenType) 
   return { valid: true as const, token }
 }
 
-export async function consumeToken(tokenId: string, userId: string) {
+export async function consumeToken(tokenId: string, userId: string, type: TokenType) {
   await prisma.$transaction(async (tx) => {
     await tx.passwordResetToken.update({
       where: { id: tokenId },
       data: { usedAt: new Date() },
     })
     await tx.passwordResetToken.deleteMany({
-      where: { userId, usedAt: null },
+      where: { userId, type, usedAt: null },
     })
   })
 }

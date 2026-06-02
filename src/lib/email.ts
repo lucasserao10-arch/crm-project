@@ -1,5 +1,13 @@
 import nodemailer from "nodemailer"
 
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+}
+
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
   port: Number(process.env.SMTP_PORT ?? 587),
@@ -36,7 +44,7 @@ export function resetPasswordEmailHtml(link: string) {
 
 export function inviteEmailHtml(link: string, fullName: string) {
   return `
-    <p>Olá ${fullName},</p>
+    <p>Olá ${escapeHtml(fullName)},</p>
     <p>Você foi convidado para acessar o CRM.</p>
     <p><a href="${link}">Clique aqui para criar sua senha e acessar</a></p>
     <p>Este link expira em 24 horas.</p>

@@ -63,7 +63,9 @@ export async function StatsCards() {
               currency: "BRL",
             })}
           </p>
-          <p className="text-xs text-muted-foreground">Deals não fechados</p>
+          <p className="text-xs text-muted-foreground">
+            {isAdmin ? "Total global" : "Seu pipeline"}
+          </p>
         </CardContent>
       </Card>
     </div>

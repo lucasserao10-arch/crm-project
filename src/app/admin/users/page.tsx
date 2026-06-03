@@ -1,6 +1,8 @@
 import { getUsers } from "@/actions/users"
 import { UserList } from "@/components/admin/user-list"
 
+export const dynamic = "force-dynamic"
+
 export default async function AdminUsersPage({
   searchParams,
 }: {

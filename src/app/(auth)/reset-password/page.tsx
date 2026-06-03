@@ -2,6 +2,8 @@ import { validateToken } from "@/lib/tokens"
 import { ResetPasswordForm } from "@/components/auth/reset-password-form"
 import Link from "next/link"
 
+export const dynamic = "force-dynamic"
+
 export default async function ResetPasswordPage({
   searchParams,
 }: {

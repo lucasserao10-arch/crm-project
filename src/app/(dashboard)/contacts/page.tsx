@@ -2,6 +2,8 @@ import { auth } from "@/auth"
 import { getContacts } from "@/actions/contacts"
 import { ContactList } from "@/components/contacts/contact-list"
 
+export const dynamic = "force-dynamic"
+
 export default async function ContactsPage({
   searchParams,
 }: {

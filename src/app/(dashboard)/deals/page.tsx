@@ -1,6 +1,8 @@
 import { getDeals } from "@/actions/deals"
 import { KanbanBoard } from "@/components/deals/kanban-board"
 
+export const dynamic = "force-dynamic"
+
 export default async function DealsPage() {
   const deals = await getDeals()
 

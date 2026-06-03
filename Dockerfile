@@ -23,5 +23,11 @@ COPY --from=builder /app/node_modules/.prisma/client/ ./node_modules/.prisma/cli
 COPY --from=builder /app/prisma ./prisma
 COPY --from=builder /app/node_modules/prisma ./node_modules/prisma
 COPY --from=builder /app/node_modules/@prisma ./node_modules/@prisma
+COPY --from=builder /app/node_modules/ts-node ./node_modules/ts-node
+COPY --from=builder /app/node_modules/typescript ./node_modules/typescript
+COPY --from=builder /app/node_modules/bcryptjs ./node_modules/bcryptjs
+COPY --from=builder /app/node_modules/zod ./node_modules/zod
+COPY start.sh ./start.sh
+RUN chmod +x start.sh
 EXPOSE 80
-CMD ["node", "server.js"]
+CMD ["sh", "start.sh"]

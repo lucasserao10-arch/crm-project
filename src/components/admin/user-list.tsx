@@ -129,7 +129,7 @@ export function UserList({ data }: Props) {
               </div>
               <div>
                 <Label>Role *</Label>
-                <Select value={roleValue} onValueChange={setRoleValue}>
+                <Select value={roleValue} onValueChange={(v) => { if (v !== null) setRoleValue(v) }}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>

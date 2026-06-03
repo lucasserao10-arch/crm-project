@@ -1,7 +1,7 @@
 #!/bin/sh
 echo "Running database setup..."
-npx prisma db push --skip-generate
+node /app/node_modules/prisma/build/index.js db push --skip-generate
 echo "Running seed..."
-npx prisma db seed
+node /app/node_modules/prisma/build/index.js db seed
 echo "Starting Next.js..."
 exec node server.js

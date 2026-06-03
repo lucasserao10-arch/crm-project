@@ -1,4 +1,3 @@
-import { auth } from "@/auth"
 import { getContact } from "@/actions/contacts"
 import { notFound } from "next/navigation"
 import { Badge } from "@/components/ui/badge"

@@ -1,6 +1,5 @@
 import { auth } from "@/auth"
 import { NextResponse } from "next/server"
-import type { NextRequest } from "next/server"
 
 const PUBLIC_PATHS = ["/login", "/reset-password", "/api/auth", "/api/health"]
 const AUTH_REDIRECT_PATHS = ["/login", "/reset-password"]

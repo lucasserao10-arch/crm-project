@@ -26,22 +26,23 @@ export async function getDeals() {
   const where =
     session.user.role === "admin" ? {} : { ownerId: session.user.id }
 
-  const deals = await prisma.deal.findMany({
-    where,
-    orderBy: { updatedAt: "desc" },
-    include: {
-      owner: { select: { fullName: true } },
-      contact: { select: { name: true } },
-    },
-  })
+  const results = await Promise.all(
+    STAGES.map((stage) =>
+      prisma.deal.findMany({
+        where: { ...where, stage },
+        orderBy: { updatedAt: "desc" },
+        take: 50,
+        include: {
+          owner: { select: { fullName: true } },
+          contact: { select: { name: true } },
+        },
+      })
+    )
+  )
 
-  // Group by stage, cap at 50 per stage
   const grouped = Object.fromEntries(
-    STAGES.map((stage) => [
-      stage,
-      deals.filter((d) => d.stage === stage).slice(0, 50),
-    ])
-  ) as Record<DealStage, typeof deals>
+    STAGES.map((stage, i) => [stage, results[i]])
+  ) as Record<DealStage, (typeof results)[0]>
 
   return grouped
 }

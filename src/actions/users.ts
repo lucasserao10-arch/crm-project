@@ -54,14 +54,19 @@ export async function getUsers({
         email: true,
         role: true,
         active: true,
-        passwordHash: true,
+        passwordHash: true, // used only to derive hasPassword below
         createdAt: true,
       },
     }),
     prisma.user.count({ where }),
   ])
 
-  return { users, total, pages: Math.ceil(total / pageSize) }
+  const safeUsers = users.map(({ passwordHash, ...u }) => ({
+    ...u,
+    hasPassword: passwordHash !== null,
+  }))
+
+  return { users: safeUsers, total, pages: Math.ceil(total / pageSize) }
 }
 
 export async function createUser(formData: FormData) {

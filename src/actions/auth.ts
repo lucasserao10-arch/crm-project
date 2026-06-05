@@ -29,7 +29,7 @@ export async function loginAction(formData: FormData) {
     if (msg.includes("CredentialsSignin") || msg.includes("CallbackRouteError")) {
       return { error: "Email ou senha incorretos." }
     }
-    throw e
+    return { error: "Erro interno. Tente novamente." }
   }
 }
 
@@ -65,6 +65,7 @@ export async function requestPasswordResetAction(formData: FormData) {
     })
   } catch (e) {
     console.error("SMTP error on password reset:", e)
+    return { error: "Erro ao enviar email. Tente novamente mais tarde." }
   }
 
   return { success: true }

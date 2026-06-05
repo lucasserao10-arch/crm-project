@@ -62,7 +62,6 @@ export function InteractionForm({
     setLoading(true)
     const result = await createInteraction({
       contactId: data.contactId,
-      ownerId,
       type: data.type,
       notes: data.notes,
       date: data.date,

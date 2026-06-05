@@ -34,7 +34,7 @@ type User = {
   email: string
   role: string
   active: boolean
-  passwordHash: string | null
+  hasPassword: boolean
 }
 
 type Props = {
@@ -179,7 +179,7 @@ export function UserList({ data }: Props) {
                     </Badge>
                   </td>
                   <td className="p-3">
-                    {u.passwordHash === null ? (
+                    {!u.hasPassword ? (
                       <Badge variant="outline">Convite pendente</Badge>
                     ) : u.active ? (
                       <Badge variant="outline" className="text-emerald-600 border-emerald-600">
@@ -191,7 +191,7 @@ export function UserList({ data }: Props) {
                   </td>
                   <td className="p-3">
                     <div className="flex gap-1 justify-end flex-wrap">
-                      {u.passwordHash === null && (
+                      {!u.hasPassword && (
                         <Button
                           size="sm"
                           variant="ghost"

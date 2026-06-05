@@ -84,7 +84,6 @@ export default async function ContactDetailPage({
           <CardTitle>Histórico de Interações</CardTitle>
           <InteractionForm
             contactId={contact.id}
-            ownerId={contact.ownerId}
           />
         </CardHeader>
         <CardContent>

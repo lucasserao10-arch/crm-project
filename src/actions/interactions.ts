@@ -14,7 +14,6 @@ async function requireSession() {
 
 export async function createInteraction(data: {
   contactId: string
-  ownerId: string
   type: string
   notes?: string
   date: string
@@ -29,17 +28,11 @@ export async function createInteraction(data: {
   })
   if (!parsed.success) return { error: parsed.error.issues[0].message }
 
-  // Validate: contact must exist and be owned by the provided ownerId
-  // This enforces interaction.owner_id === contact.owner_id
   const contact = await prisma.contact.findFirst({
-    where: {
-      id: parsed.data.contactId,
-      ownerId: data.ownerId,
-    },
+    where: { id: parsed.data.contactId },
   })
   if (!contact) return { error: "Contato não encontrado ou sem permissão." }
 
-  // For regular users: also verify they own the contact
   if (session.user.role !== "admin" && contact.ownerId !== session.user.id) {
     return { error: "Sem permissão para registrar interações neste contato." }
   }

@@ -30,10 +30,8 @@ type Form = z.infer<typeof interactionSchema>
 
 export function InteractionForm({
   contactId,
-  ownerId,
 }: {
   contactId: string
-  ownerId: string
 }) {
   const router = useRouter()
   const [open, setOpen] = useState(false)
